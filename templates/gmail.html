@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block title %}Gmail Inbox Scanner - MailVision{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-11 col-xl-10">
+        <!-- Header Banner -->
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-white mb-2 d-flex align-items-center justify-content-center">
+                <i class="fab fa-google text-danger me-3 fs-2"></i>
+                Gmail Inbox Scanner
+            </h1>
+            <p class="text-secondary fs-6">
+                On-Demand Inbox Threat & Spam Scanning Powered by MailVision AI
+            </p>
+        </div>
+
+        <!-- Notification Alerts -->
+        {% if error_message %}
+        <div class="alert alert-danger alert-dismissible fade show cyber-alert mb-4" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>{{ error_message }}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="alert alert-success alert-dismissible fade show cyber-alert mb-4" role="alert">
+            <i class="fas fa-check-circle me-2"></i>{{ success_message }}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        <div id="dynamic-alert" class="alert alert-danger d-none mb-4 cyber-alert" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i><span id="dynamic-alert-message"></span>
+        </div>
+
+        <!-- Connection Card -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-shield-alt me-2 text-info"></i>Gmail Connection Status
+                </span>
+                <span id="connection-badge">
+                    {% if connected %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                        <i class="fas fa-link me-1"></i>Connected
+                    </span>
+                    {% else %}
+                    <span class="badge bg-secondary-subtle text-muted border border-secondary-subtle px-3 py-2">
+                        <i class="fas fa-unlink me-1"></i>Disconnected
+                    </span>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="cyber-card-body">
+                {% if not connected %}
+                <!-- Disconnected State -->
+                <div class="row align-items-center py-2">
+                    <div class="col-md-8 mb-3 mb-md-0">
+                        <h5 class="text-white mb-2 fw-semibold">Connect Your Google Account</h5>
+                        <p class="text-secondary small mb-2">
+                            Securely link your Gmail account using official Google OAuth 2.0 to scan your latest inbox messages on demand.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 text-muted small">
+                            <span><i class="fas fa-lock text-success me-1"></i>Read-only scope</span>
+                            <span><i class="fas fa-eye-slash text-info me-1"></i>Zero message storage</span>
+                            <span><i class="fas fa-ban text-warning me-1"></i>Never modifies or sends emails</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        {% if configured %}
+                        <a href="{{ url_for('gmail_connect') }}" class="btn btn-cyber-primary px-4 py-2">
+                            <i class="fab fa-google me-2"></i>Connect Gmail
+                        </a>
+                        {% else %}
+                        <button type="button" class="btn btn-cyber-outline disabled px-3 py-2" title="Google Cloud credentials missing">
+                            <i class="fas fa-cog me-2"></i>Setup Required (.env)
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if not configured %}
+                <div class="mt-3 p-3 border rounded text-start" style="background:#0d1322; border-color:var(--card-border)!important;">
+                    <div class="small text-warning fw-semibold mb-1">
+                        <i class="fas fa-info-circle me-1"></i>Google Cloud Configuration Notice:
+                    </div>
+                    <div class="small text-secondary">
+                        To enable Gmail scanning, please set <code class="text-info">GOOGLE_CLIENT_ID</code> and <code class="text-info">GOOGLE_CLIENT_SECRET</code> in your local <code class="text-info">.env</code> file. Refer to <code class="text-info">.env.example</code> for complete setup instructions.
+                    </div>
+                </div>
+                {% endif %}
+
+                {% else %}
+                <!-- Connected State -->
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 py-2">
+                    <div>
+                        <div class="small text-secondary mb-1">Signed in as:</div>
+                        <div class="h5 text-white mb-0 font-monospace">
+                            <i class="fas fa-envelope-open-text text-info me-2"></i>
+                            <span id="connected-email-display">{{ connected_email }}</span>
+                        </div>
+                        <div class="small text-muted mt-1">
+                            <i class="fas fa-check-circle text-success me-1"></i>Authorized for on-demand inbox scanning
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button id="btn-scan-inbox" class="btn btn-cyber-primary px-4">
+                            <i class="fas fa-search me-1"></i>Scan Inbox
+                        </button>
+                        <button id="btn-disconnect" class="btn btn-cyber-outline text-danger border-danger-subtle px-3">
+                            <i class="fas fa-sign-out-alt me-1"></i>Disconnect
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Scanning Loading State -->
+        <div id="scan-loading-state" class="text-center py-5 d-none">
+            <div class="spinner-border spinner-border-cyber" role="status">
+                <span class="visually-hidden">Scanning...</span>
+            </div>
+            <p class="text-secondary mt-3 font-monospace mb-1">Fetching latest emails from Gmail API and running MailVision analysis...</p>
+            <p class="text-muted small">MIME decoding &bull; HTML cleaning &bull; TF-IDF ML prediction &bull; Heuristic risk evaluation</p>
+        </div>
+
+        <!-- Scan Summary & Filter Controls -->
+        <div id="scan-results-container" class="d-none">
+            <!-- Metric Counters Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-md-3">
+                    <div class="cyber-card p-3 text-center">
+                        <div class="stat-label small mb-1">Total Emails Scanned</div>
+                        <div id="stat-total" class="h3 font-weight-bold text-white mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="cyber-card p-3 text-center" style="border-left: 3px solid var(--spam-red);">
+                        <div class="stat-label small mb-1 text-danger">Spam Detected</div>
+                        <div id="stat-spam" class="h3 font-weight-bold text-danger mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="cyber-card p-3 text-center" style="border-left: 3px solid var(--ham-green);">
+                        <div class="stat-label small mb-1 text-success">Safe (Ham)</div>
+                        <div id="stat-ham" class="h3 font-weight-bold text-success mb-0">0</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="cyber-card p-3 text-center" style="border-left: 3px solid #ef4444;">
+                        <div class="stat-label small mb-1 text-danger">High-Risk Threats</div>
+                        <div id="stat-high-risk" class="h3 font-weight-bold text-danger mb-0">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="cyber-card mb-4">
+                <div class="cyber-card-body d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-cyber-primary filter-btn active" data-filter="all">
+                            All (<span id="filter-count-all">0</span>)
+                        </button>
+                        <button type="button" class="btn btn-sm btn-cyber-outline filter-btn" data-filter="spam">
+                            <i class="fas fa-exclamation-triangle text-danger me-1"></i>Spam (<span id="filter-count-spam">0</span>)
+                        </button>
+                        <button type="button" class="btn btn-sm btn-cyber-outline filter-btn" data-filter="ham">
+                            <i class="fas fa-shield-alt text-success me-1"></i>Ham (<span id="filter-count-ham">0</span>)
+                        </button>
+                        <button type="button" class="btn btn-sm btn-cyber-outline filter-btn" data-filter="high-risk">
+                            <i class="fas fa-skull-crossbones text-danger me-1"></i>High Risk (<span id="filter-count-high-risk">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="text-muted small">
+                        Click on any email row to inspect detailed risk indicators, reasons, and submit prediction feedback.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email List Cards -->
+            <div id="emails-list" class="d-flex flex-column gap-3 mb-4"></div>
+
+            <!-- Pagination / Scan Next Batch -->
+            <div id="pagination-container" class="text-center my-4 d-none">
+                <button id="btn-scan-next-batch" class="btn btn-cyber-outline px-4 py-2">
+                    <i class="fas fa-angle-double-right me-2"></i>Scan Next Batch (5 More)
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="empty-state" class="cyber-card text-center py-5 d-none">
+            <div class="cyber-card-body">
+                <i class="fas fa-inbox text-secondary fa-3x mb-3"></i>
+                <h5 class="text-white">No Emails Found</h5>
+                <p class="text-secondary small mb-0" id="empty-state-message">
+                    Your inbox does not contain any matching messages to analyze.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/gmail.js') }}"></script>
+{% endblock %}

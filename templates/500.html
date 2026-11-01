@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Internal Server Error - MailVision{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-1 text-warning font-monospace">500</h1>
+    <h3 class="text-white mb-3">Internal Server Error</h3>
+    <p class="text-secondary mb-4">An unexpected error occurred while processing your request. Please try again.</p>
+    <a href="{{ url_for('home') }}" class="btn btn-cyber-primary"><i class="fas fa-home me-2"></i>Return to MailVision</a>
+</div>
+{% endblock %}

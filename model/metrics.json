@@ -1,0 +1,61 @@
+{
+    "dataset_info": {
+        "total_messages": 5572,
+        "spam_messages": 747,
+        "ham_messages": 4825,
+        "train_samples": 4453,
+        "test_samples": 1114
+    },
+    "models": {
+        "Multinomial Naive Bayes": {
+            "accuracy": 0.9829,
+            "precision": 0.9924,
+            "recall": 0.8792,
+            "f1_score": 0.9324,
+            "confusion_matrix": [
+                [
+                    964,
+                    1
+                ],
+                [
+                    18,
+                    131
+                ]
+            ]
+        },
+        "Logistic Regression": {
+            "accuracy": 0.9785,
+            "precision": 0.9921,
+            "recall": 0.8456,
+            "f1_score": 0.913,
+            "confusion_matrix": [
+                [
+                    964,
+                    1
+                ],
+                [
+                    23,
+                    126
+                ]
+            ]
+        },
+        "Linear SVM": {
+            "accuracy": 0.9919,
+            "precision": 0.993,
+            "recall": 0.9463,
+            "f1_score": 0.9691,
+            "confusion_matrix": [
+                [
+                    964,
+                    1
+                ],
+                [
+                    8,
+                    141
+                ]
+            ]
+        }
+    },
+    "selected_model": "Multinomial Naive Bayes",
+    "rationale": "Multinomial Naive Bayes provides exceptional text classification performance, handles sparse TF-IDF feature matrices natively, and yields reliable probability estimation for spam risk confidence scoring."
+}

@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - MailVision{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header Banner -->
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-white mb-2 d-flex align-items-center justify-content-center">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MailVision Logo" class="hero-logo me-3">
+                MailVision
+            </h1>
+            <p class="text-secondary fs-5">
+                Intelligent Email Spam Detection
+            </p>
+        </div>
+
+        <!-- Analyzer Card -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <span><i class="fas fa-terminal me-2 text-info"></i>Analyze Message Content</span>
+                <div>
+                    <span class="small-label small me-2">Preset Samples:</span>
+                    <button type="button" class="preset-btn" data-sample="spam"><i class="fas fa-bug text-danger me-1"></i>Spam</button>
+                    <button type="button" class="preset-btn" data-sample="phishing"><i class="fas fa-fish text-warning me-1"></i>Phishing</button>
+                    <button type="button" class="preset-btn" data-sample="ham"><i class="fas fa-shield-alt text-success me-1"></i>Safe (Ham)</button>
+                </div>
+            </div>
+            <div class="cyber-card-body">
+                <form id="analyze-form">
+                    <div class="mb-3">
+                        <textarea id="message-input" class="form-control cyber-textarea" rows="6" placeholder="Paste your email or message content here for instant spam detection analysis..."></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-secondary small">
+                            Characters: <span id="char-count" class="text-info fw-bold">0</span> |
+                            Words: <span id="word-count" class="text-info fw-bold">0</span>
+                        </div>
+                        <div>
+                            <button type="button" id="btn-clear" class="btn btn-cyber-outline me-2">
+                                <i class="fas fa-eraser me-1"></i>Clear
+                            </button>
+                            <button type="submit" id="btn-analyze" class="btn btn-cyber-primary">
+                                <i class="fas fa-search me-1"></i>Analyze Message
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Error Alert -->
+                <div id="error-alert" class="alert alert-danger mt-3 d-none" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i><span id="error-message"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="text-center py-5 d-none">
+            <div class="spinner-border spinner-border-cyber" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-secondary mt-3 font-monospace">Analyzing message features and running ML classification...</p>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result-section" class="d-none">
+            <!-- Banner -->
+            <div id="banner-container" class="mb-4"></div>
+
+            <div class="row">
+                <!-- Confidence & Probability Breakdown -->
+                <div class="col-md-6 mb-4">
+                    <div class="cyber-card h-100">
+                        <div class="cyber-card-header">
+                            <span><i class="fas fa-chart-pie me-2 text-info"></i>Prediction Confidence</span>
+                        </div>
+                        <div class="cyber-card-body d-flex flex-column justify-content-center">
+                            <div class="text-center mb-3">
+                                <span class="small-label small">Model Confidence Score</span>
+                                <div id="confidence-value" class="display-4 font-weight-bold text-white">0%</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between small text-secondary mb-1">
+                                    <span class="probability-label">Spam Probability</span>
+                                    <span id="spam-prob-val" class="text-danger fw-bold">0%</span>
+                                </div>
+                                <div class="progress progress-cyber">
+                                    <div id="spam-progress-bar" class="progress-bar progress-bar-spam" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="d-flex justify-content-between small text-secondary mb-1">
+                                    <span class="probability-label">Ham (Safe) Probability</span>
+                                    <span id="ham-prob-val" class="text-success fw-bold">0%</span>
+                                </div>
+                                <div class="progress progress-cyber">
+                                    <div id="ham-progress-bar" class="progress-bar progress-bar-ham" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detected Heuristic Indicators -->
+                <div class="col-md-6 mb-4">
+                    <div class="cyber-card h-100">
+                        <div class="cyber-card-header">
+                            <span><i class="fas fa-list-check me-2 text-info"></i>Detected Risk Indicators</span>
+                        </div>
+                        <div class="cyber-card-body" id="indicators-list">
+                            <!-- Indicator items dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Statistics Grid -->
+            <div class="cyber-card mb-4">
+                <div class="cyber-card-header">
+                    <span><i class="fas fa-calculator me-2 text-info"></i>Message Statistics</span>
+                </div>
+                <div class="cyber-card-body">
+                    <div class="row" id="stats-grid">
+                        <!-- Stats populating here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

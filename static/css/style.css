@@ -1,0 +1,449 @@
+/* MailVision - Cybersecurity Theme CSS */
+:root {
+    --bg-dark: #0b0f19;
+    --card-bg: #151c2c;
+    --card-border: #232d42;
+    --accent-blue: #38bdf8;
+    --accent-cyan: #06b6d4;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --card-heading: #f1f5f9;
+    --small-label: #cbd5e1;
+    --spam-red: #ef4444;
+    --spam-bg: rgba(239, 68, 68, 0.12);
+    --spam-border: rgba(239, 68, 68, 0.4);
+    --ham-green: #22c55e;
+    --ham-bg: rgba(34, 197, 94, 0.12);
+    --ham-border: rgba(34, 197, 94, 0.4);
+    --warning-yellow: #facc15;
+    --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Typography & Text Hierarchy Overrides */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--text-primary);
+}
+
+p, span, label, div {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary) !important; /* #cbd5e1 */
+}
+
+.text-muted {
+    color: var(--text-muted) !important; /* #94a3b8 */
+}
+
+small, .small, .small-label {
+    color: var(--small-label) !important; /* #cbd5e1 */
+}
+
+/* Label & Stat Classes */
+.label,
+.stat-label,
+.stat-title,
+.metric-label,
+.probability-label,
+.card-title,
+.description {
+    color: var(--small-label) !important; /* #cbd5e1 */
+}
+
+/* Logo Image Styles */
+.brand-logo {
+    height: 34px;
+    width: 34px;
+    object-fit: contain;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.hero-logo {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.page-logo {
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* Navbar */
+.navbar-cyber {
+    background-color: rgba(21, 28, 44, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--text-primary) !important;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent-blue) !important;
+}
+
+/* Cards */
+.cyber-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cyber-card-header {
+    border-bottom: 1px solid var(--card-border);
+    padding: 16px 20px;
+    font-weight: 600;
+    color: var(--card-heading) !important; /* #f1f5f9 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cyber-card-body {
+    padding: 20px;
+}
+
+/* Inputs & Forms */
+.cyber-textarea {
+    background-color: #0d1322;
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 14px;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cyber-textarea:focus {
+    background-color: #0d1322;
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    outline: none;
+}
+
+.cyber-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* Buttons */
+.btn-cyber-primary {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    transition: all 0.2s ease;
+}
+
+.btn-cyber-primary:hover {
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-cyber-outline {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-cyber-outline:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+/* Sample Preset Badges */
+.preset-btn {
+    font-size: 0.82rem;
+    border-radius: 20px;
+    padding: 4px 12px;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    background-color: #0d1322;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    margin-right: 6px;
+}
+
+.preset-btn:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+/* Result Banners */
+.result-banner-spam {
+    background-color: var(--spam-bg);
+    border: 1px solid var(--spam-border);
+    color: var(--spam-red);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.result-banner-ham {
+    background-color: var(--ham-bg);
+    border: 1px solid var(--ham-border);
+    color: var(--ham-green);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.banner-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+/* Metrics Cards */
+.metric-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin-top: 5px;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: var(--small-label) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Indicator Pills */
+.indicator-item {
+    background-color: #0d1322;
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+
+.indicator-item.high {
+    border-left-color: var(--spam-red);
+}
+
+.indicator-item.medium {
+    border-left-color: var(--warning-yellow);
+}
+
+.indicator-item.low {
+    border-left-color: var(--accent-blue);
+}
+
+.indicator-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.indicator-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* Dedicated History Table Styling */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    background: #111827;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 750px;
+    border-collapse: collapse;
+    background: #111827 !important;
+    color: #f8fafc !important;
+}
+
+.history-table thead {
+    background: #1e293b !important;
+}
+
+.history-table th {
+    color: #f8fafc !important;
+    background: #1e293b !important;
+    font-weight: 600;
+    padding: 16px 14px;
+    border-bottom: 1px solid #334155 !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+.history-table td {
+    color: #cbd5e1 !important;
+    background: #111827 !important;
+    padding: 16px 14px;
+    border-bottom: 1px solid #334155 !important;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.history-table tr:hover td {
+    background: #172033 !important;
+}
+
+/* History Table Column Width Controls */
+.history-table th:nth-child(1),
+.history-table td:nth-child(1) {
+    width: 70px;
+}
+
+.history-table th:nth-child(2),
+.history-table td:nth-child(2) {
+    min-width: 170px;
+}
+
+.history-table th:nth-child(3),
+.history-table td:nth-child(3) {
+    min-width: 120px;
+}
+
+.history-table th:nth-child(4),
+.history-table td:nth-child(4) {
+    min-width: 120px;
+}
+
+.history-table th:nth-child(5),
+.history-table td:nth-child(5),
+.history-table th:nth-child(6),
+.history-table td:nth-child(6) {
+    min-width: 120px;
+}
+
+.history-table th:nth-child(7),
+.history-table td:nth-child(7) {
+    min-width: 110px;
+}
+
+.history-table th:nth-child(8),
+.history-table td:nth-child(8) {
+    min-width: 100px;
+}
+
+/* Cell Formatting */
+.cell-id,
+.cell-timestamp,
+.cell-number {
+    color: #cbd5e1 !important;
+}
+
+.cell-confidence {
+    color: #f8fafc !important;
+    font-weight: 700;
+}
+
+.cell-spam-prob {
+    color: #f87171 !important;
+    font-weight: 600;
+}
+
+.cell-ham-prob {
+    color: #4ade80 !important;
+    font-weight: 600;
+}
+
+/* Badges */
+.badge-spam {
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.badge-ham {
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Footer */
+.footer-cyber {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--card-border);
+    color: var(--text-muted);
+    padding: 20px 0;
+    margin-top: auto;
+    font-size: 0.85rem;
+}
+
+/* Progress bar cyber style */
+.progress-cyber {
+    height: 12px;
+    background-color: #0d1322;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-bar-spam {
+    background-color: var(--spam-red);
+}
+
+.progress-bar-ham {
+    background-color: var(--ham-green);
+}
+
+/* Spinner */
+.spinner-border-cyber {
+    width: 2rem;
+    height: 2rem;
+    color: var(--accent-blue);
+}

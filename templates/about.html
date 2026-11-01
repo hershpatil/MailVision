@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}About - MailVision{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Main Title -->
+        <div class="mb-4">
+            <h2 class="fw-bold text-white mb-2 d-flex align-items-center">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MailVision Logo" class="page-logo me-3">
+                About MailVision
+            </h2>
+            <p class="text-secondary fs-5">
+                MailVision is a machine-learning-powered spam detection system that analyzes message content and identifies potentially unwanted or suspicious messages.
+            </p>
+        </div>
+
+        <!-- End-to-End Pipeline Card -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <span><i class="fas fa-sitemap me-2 text-info"></i>End-to-End Machine Learning Pipeline</span>
+            </div>
+            <div class="cyber-card-body text-center py-4">
+                <div class="row g-2 align-items-center justify-content-center">
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-database text-info display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">Dataset</div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-filter text-info display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">Preprocessing</div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-calculator text-info display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">TF-IDF</div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-brain text-info display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">Model Training</div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-chart-line text-info display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">Model Evaluation</div>
+                        </div>
+                    </div>
+                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
+                    <div class="col-6 col-md-2 mb-2">
+                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
+                            <i class="fas fa-shield-alt text-success display-6 mb-2"></i>
+                            <div class="fw-bold text-white small">Spam/Ham Prediction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Breakdown -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+                <div class="cyber-card h-100">
+                    <div class="cyber-card-header">
+                        <span><i class="fas fa-cogs me-2 text-info"></i>Machine Learning & Evaluation</span>
+                    </div>
+                    <div class="cyber-card-body">
+                        <ul class="list-unstyled text-secondary mb-0">
+                            <li class="mb-3">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Text Preprocessing:</strong> Lowercasing, HTML stripping, URL & entity tokenization, stopword filtering, and WordNet lemmatization.
+                            </li>
+                            <li class="mb-3">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>TF-IDF Feature Extraction:</strong> Unigram and Bigram term frequency-inverse document frequency matrix construction (sublinear TF scaling).
+                            </li>
+                            <li class="mb-3">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Multinomial Naive Bayes:</strong> Primary deployed model for probabilistic spam classification.
+                            </li>
+                            <li class="mb-0">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Offline Model Evaluation:</strong> Compares Naive Bayes, Logistic Regression, and Linear SVM performance metrics (Accuracy, Precision, Recall, F1 Score, Confusion Matrix) saved in <code>model/metrics.json</code>.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="cyber-card h-100">
+                    <div class="cyber-card-header">
+                        <span><i class="fas fa-search me-2 text-info"></i>Rule Engine Heuristics</span>
+                    </div>
+                    <div class="cyber-card-body">
+                        <ul class="list-unstyled text-secondary mb-0">
+                            <li class="mb-3">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Urgency & Prize Detection:</strong> Scans for high-pressure wording ("act now", "claim prize", "immediate action").
+                            </li>
+                            <li class="mb-3">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Financial Risk Flags:</strong> Flags requests for credentials, credit cards, bank accounts, or SSNs.
+                            </li>
+                            <li class="mb-0">
+                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>URL & Formatting Analysis:</strong> Identifies raw IP links, domain shorteners, phone numbers, and SHOUTING caps.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

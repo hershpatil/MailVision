@@ -1,0 +1,65 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables & secrets (NEVER commit secrets!)
+.env
+.env.*
+.env.local
+.env.production
+!.env.example
+
+# Google OAuth Credentials & Tokens
+credentials.json
+client_secret*.json
+client_secrets*.json
+token.json
+tokens.json
+*.token
+*.pickle
+
+# SQLite Database & User Data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+database/predictions.db
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# NLTK downloaded corpora
+nltk_data/
+
+# Temporary / duplicate data downloads
+sms+spam+collection (1)/
