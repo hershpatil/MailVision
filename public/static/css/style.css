@@ -232,6 +232,32 @@ p, span, label, div {
     }
 }
 
+/* Hero Section Background with Cybersecurity Animated GIF */
+.hero-section {
+    position: relative;
+    background-image: 
+        linear-gradient(
+            rgba(5, 10, 22, 0.65),
+            rgba(5, 10, 22, 0.82)
+        ),
+        url('/static/images/back.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: var(--radius-xl);
+    padding: 3.5rem 2rem;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 35px rgba(56, 189, 248, 0.15);
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2.25rem 1.25rem;
+        border-radius: var(--radius-lg);
+    }
+}
+
 /* Hero Badge */
 .hero-chip {
     display: inline-flex;
