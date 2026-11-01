@@ -39,8 +39,9 @@ for candidate in [PROJECT_NLTK_DATA, TMP_NLTK_DATA]:
         nltk.data.path.insert(0, candidate)
 
 def _init_nltk():
-    """Download required NLTK resources to writable directory if missing."""
-    resources = ['stopwords', 'wordnet', 'punkt']
+    """Ensure required NLTK resources are available without unnecessary downloads."""
+    # Only check for stopwords and wordnet; punkt is not needed as tokenization uses whitespace split
+    resources = ['stopwords', 'wordnet']
     download_dir = TMP_NLTK_DATA
     try:
         os.makedirs(download_dir, exist_ok=True)
@@ -49,7 +50,7 @@ def _init_nltk():
 
     for res in resources:
         try:
-            nltk.data.find(f'corpora/{res}' if res in ['stopwords', 'wordnet'] else f'tokenizers/{res}')
+            nltk.data.find(f'corpora/{res}')
         except LookupError:
             try:
                 if download_dir:
