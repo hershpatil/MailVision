@@ -1,6 +1,7 @@
 import os
 import secrets
 from datetime import timedelta
+from urllib.parse import parse_qs, urlencode, unquote
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 import config
@@ -17,6 +18,41 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, 'static'),
     static_url_path='/static'
 )
+
+class VercelPathMiddleware:
+    """
+    WSGI Middleware for Vercel Serverless Functions:
+    Restores the client's original URL path from Vercel's rewrite query parameter
+    (?path=$1) or headers into WSGI environ['PATH_INFO'].
+    Preserves HTTP method, headers, request body stream (wsgi.input), and original query parameters.
+    """
+    def __init__(self, wsgi_app):
+        self.wsgi_app = wsgi_app
+
+    def __call__(self, environ, start_response):
+        query_string = environ.get('QUERY_STRING', '')
+        if 'path=' in query_string:
+            params = parse_qs(query_string, keep_blank_values=True)
+            if 'path' in params:
+                raw_path = params['path'][0] if params['path'] else ''
+                # Unquote URL-encoded path characters (e.g. %2F -> /)
+                raw_path = unquote(raw_path)
+                if not raw_path.startswith('/'):
+                    raw_path = '/' + raw_path
+                environ['PATH_INFO'] = raw_path
+                # Clean 'path' parameter from QUERY_STRING so it doesn't pollute application request.args
+                remaining = {k: v for k, v in params.items() if k != 'path'}
+                environ['QUERY_STRING'] = urlencode(remaining, doseq=True)
+        elif environ.get('PATH_INFO') in ('/api/index', '/api/index.py', '/api', '/api/'):
+            matched_path = environ.get('HTTP_X_MATCHED_PATH')
+            if matched_path and matched_path not in ('/api/index.py', '/api/index', '/api', '/api/'):
+                environ['PATH_INFO'] = matched_path
+            else:
+                environ['PATH_INFO'] = '/'
+
+        return self.wsgi_app(environ, start_response)
+
+app.wsgi_app = VercelPathMiddleware(app.wsgi_app)
 app.config['SECRET_KEY'] = config.FLASK_SECRET_KEY
 app.config['SESSION_COOKIE_NAME'] = 'mailvision_session'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
@@ -55,8 +91,8 @@ def home():
     """Render home / main analyzer interface."""
     return render_template('index.html')
 
-@app.route('/api/index')
-@app.route('/api/index.py')
+@app.route('/api/index', methods=['GET', 'POST'])
+@app.route('/api/index.py', methods=['GET', 'POST'])
 def vercel_entrypoint_fallback():
     """Fallback in case internal Vercel serverless function path reaches Flask router directly."""
     matched_path = request.headers.get('x-matched-path', '').strip()
