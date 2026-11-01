@@ -2,6 +2,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Deployment environment detection
+IS_VERCEL = bool(os.environ.get("VERCEL") == "1")
+
 EXCLUDED_PLACEHOLDERS_ID = {
     "your-google-client-id.apps.googleusercontent.com",
     "your-google-client-id",
@@ -107,7 +110,7 @@ _load_env_file()
 def reload_config():
     """Re-load .env and synchronize module-level configuration variables with sanitization."""
     _load_env_file()
-    global FLASK_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI, GMAIL_SCAN_BATCH_SIZE
+    global FLASK_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI, GMAIL_SCAN_BATCH_SIZE, DATABASE_URL
     FLASK_SECRET_KEY = os.environ.get("FLASK_SECRET_KEY", "mailvision-secret-key-2026").strip().strip("'\"")
 
     raw_id = os.environ.get("GOOGLE_CLIENT_ID", "")
@@ -119,6 +122,7 @@ def reload_config():
     GOOGLE_CLIENT_SECRET = clean_secret
 
     GOOGLE_REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI", "http://127.0.0.1:5000/gmail/callback").strip().strip("'\"")
+    DATABASE_URL = (os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL", "")).strip().strip("'\"")
     try:
         GMAIL_SCAN_BATCH_SIZE = int(os.environ.get("GMAIL_SCAN_BATCH_SIZE", "5"))
     except ValueError:
@@ -137,11 +141,14 @@ def log_diagnostic_status(logger=None):
 
     secret_key_set = bool(FLASK_SECRET_KEY and FLASK_SECRET_KEY != "mailvision-secret-key-change-in-production-2026")
     ready = id_valid and secret_valid
+    db_type = "PostgreSQL (DATABASE_URL configured)" if DATABASE_URL else f"SQLite ({DATABASE_PATH})"
 
     diagnostic_msg = (
         "\n=======================================================\n"
         " [MailVision Configuration Diagnostics]\n"
+        f"  - Deployment: {'Vercel Serverless' if IS_VERCEL else 'Local / Standard Server'}\n"
         f"  - .env file detected: {env_exists}\n"
+        f"  - Database: {db_type}\n"
         f"  - FLASK_SECRET_KEY configured: {secret_key_set}\n"
         f"  - GOOGLE_CLIENT_ID configured: {id_valid} (present: {bool(raw_id.strip())}) -> {id_reason}\n"
         f"  - GOOGLE_CLIENT_SECRET configured: {secret_valid} (present: {bool(raw_secret.strip())}) -> {secret_reason}\n"
@@ -162,8 +169,15 @@ MODEL_PATH = os.path.join(MODEL_DIR, "spam_model.pkl")
 VECTORIZER_PATH = os.path.join(MODEL_DIR, "tfidf_vectorizer.pkl")
 METRICS_PATH = os.path.join(MODEL_DIR, "metrics.json")
 
-DATABASE_DIR = os.path.join(BASE_DIR, "database")
-DATABASE_PATH = os.path.join(DATABASE_DIR, "predictions.db")
+# Database Configuration (PostgreSQL in production; SQLite for local development or fallback)
+DATABASE_URL = (os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL", "")).strip().strip("'\"")
+if IS_VERCEL and not DATABASE_URL:
+    # On Vercel without PostgreSQL attached, use /tmp which is the only writable directory
+    DATABASE_DIR = "/tmp/database"
+    DATABASE_PATH = os.path.join(DATABASE_DIR, "predictions.db")
+else:
+    DATABASE_DIR = os.path.join(BASE_DIR, "database")
+    DATABASE_PATH = os.path.join(DATABASE_DIR, "predictions.db")
 
 MAX_INPUT_LENGTH = 10000
 

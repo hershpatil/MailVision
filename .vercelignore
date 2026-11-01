@@ -1,0 +1,12 @@
+.git
+.github
+tests/
+database/predictions.db
+sms+spam+collection (1)
+ba3ea7fe-0e9d-4596-b822-d4a1b2322edb.png
+*.pyc
+__pycache__
+*.md
+.pytest_cache
+.env
+.env.*

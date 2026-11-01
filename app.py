@@ -9,12 +9,20 @@ from database import db
 from gmail import auth as gmail_auth
 from gmail import service as gmail_service
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static'),
+    static_url_path='/static'
+)
 app.config['SECRET_KEY'] = config.FLASK_SECRET_KEY
 app.config['SESSION_COOKIE_NAME'] = 'mailvision_session'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_COOKIE_SECURE'] = False  # Set False for local HTTP development (127.0.0.1)
+# Secure cookies over HTTPS in production/Vercel; Allow HTTP on local development
+app.config['SESSION_COOKIE_SECURE'] = bool(config.IS_VERCEL or os.environ.get('SESSION_COOKIE_SECURE', '').lower() == 'true')
 app.config['SESSION_COOKIE_PATH'] = '/'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
@@ -185,7 +193,7 @@ def gmail_connect():
         max_age=600,
         httponly=True,
         samesite='Lax',
-        secure=False,
+        secure=bool(config.IS_VERCEL or os.environ.get('SESSION_COOKIE_SECURE', '').lower() == 'true'),
         path='/'
     )
     return response
