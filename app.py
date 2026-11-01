@@ -38,6 +38,9 @@ def normalize_host_and_session():
        Redirects localhost:5000 -> 127.0.0.1:5000 so session cookies are never lost.
     2. Ensure every visiting client has a persistent secure session identifier.
     """
+    # Safe diagnostic logging (request path and method metadata only; never logs secrets, tokens, or email contents)
+    app.logger.info("Request received: method=%s, path=%s, environ_path=%s",
+                    request.method, request.path, request.environ.get('PATH_INFO'))
     # Normalize localhost -> 127.0.0.1 so cookies and Google OAuth redirect URI match
     if request.host == 'localhost:5000' or (request.host.startswith('localhost') and 'SERVER_SOFTWARE' in request.environ):
         new_url = request.url.replace('://localhost', '://127.0.0.1', 1)
@@ -50,6 +53,15 @@ def normalize_host_and_session():
 @app.route('/')
 def home():
     """Render home / main analyzer interface."""
+    return render_template('index.html')
+
+@app.route('/api/index')
+@app.route('/api/index.py')
+def vercel_entrypoint_fallback():
+    """Fallback in case internal Vercel serverless function path reaches Flask router directly."""
+    matched_path = request.headers.get('x-matched-path', '').strip()
+    if matched_path and matched_path not in ('/api/index', '/api/index.py', '/'):
+        return redirect(matched_path)
     return render_template('index.html')
 
 @app.route('/api/predict', methods=['POST'])
@@ -342,7 +354,10 @@ def gmail_feedback_api():
 # Error Handlers
 @app.errorhandler(404)
 def not_found_error(error):
-    if request.path.startswith('/api/'):
+    app.logger.warning("404 Not Found: path=%s, environ_path=%s, x_matched_path=%s",
+                       request.path, request.environ.get('PATH_INFO'), request.headers.get('x-matched-path'))
+    # Return JSON for actual API endpoints, but HTML for all page routes
+    if request.path.startswith('/api/') and not request.path.startswith('/api/index'):
         return jsonify({"status": "error", "message": "API endpoint not found"}), 404
     return render_template('404.html'), 404
 
