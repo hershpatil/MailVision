@@ -1,5 +1,6 @@
 import os
 import sys
+from urllib.parse import parse_qs, urlencode
 
 # Ensure project root is in Python's search path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,30 +13,28 @@ from app import app
 class VercelPathMiddleware:
     """
     WSGI Middleware for Vercel Serverless Functions:
-    When Vercel's rewrite rule maps traffic to /api/index, WSGI environ['PATH_INFO']
-    may retain the internal function path ('/api/index' or '/api/index.py') instead
-    of the client's actual requested URL path.
-
-    This middleware inspects Vercel's x-matched-path header (and x-forwarded-uri)
-    to restore the true client request path before passing it to Flask's router.
+    Restores the client's original URL path from Vercel's rewrite query parameter
+    (?path=$1) or headers into WSGI environ['PATH_INFO'].
     """
     def __init__(self, wsgi_app):
         self.wsgi_app = wsgi_app
 
     def __call__(self, environ, start_response):
-        path_info = environ.get('PATH_INFO', '')
-        # Check if the path points to the serverless function destination
-        if path_info in ('/api/index.py', '/api/index', '/api', '/api/'):
-            # 1. Recover the actual matched route from Vercel's header
+        query_string = environ.get('QUERY_STRING', '')
+        if 'path=' in query_string:
+            params = parse_qs(query_string, keep_blank_values=True)
+            if 'path' in params:
+                raw_path = params['path'][0] if params['path'] else ''
+                if not raw_path.startswith('/'):
+                    raw_path = '/' + raw_path
+                environ['PATH_INFO'] = raw_path
+                # Clean 'path' parameter from QUERY_STRING so it doesn't pollute application request.args
+                remaining = {k: v for k, v in params.items() if k != 'path'}
+                environ['QUERY_STRING'] = urlencode(remaining, doseq=True)
+        elif environ.get('PATH_INFO') in ('/api/index', '/api/index.py', '/api', '/api/'):
             matched_path = environ.get('HTTP_X_MATCHED_PATH')
             if matched_path and matched_path not in ('/api/index.py', '/api/index', '/api', '/api/'):
                 environ['PATH_INFO'] = matched_path
-            # 2. Check forwarded URI
-            elif environ.get('HTTP_X_FORWARDED_URI'):
-                uri = environ.get('HTTP_X_FORWARDED_URI').split('?')[0]
-                if uri not in ('/api/index.py', '/api/index', '/api', '/api/'):
-                    environ['PATH_INFO'] = uri
-            # 3. Default to root homepage if no specific subpath was matched
             else:
                 environ['PATH_INFO'] = '/'
 
