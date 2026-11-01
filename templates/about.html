@@ -1,114 +1,178 @@
 {% extends 'base.html' %}
 
-{% block title %}About - MailVision{% endblock %}
+{% block title %}Architecture & Methodology - MailVision{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <!-- Main Title -->
-        <div class="mb-4">
-            <h2 class="fw-bold text-white mb-2 d-flex align-items-center">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MailVision Logo" class="page-logo me-3">
-                About MailVision
-            </h2>
-            <p class="text-secondary fs-5">
-                MailVision is a machine-learning-powered spam detection system that analyzes message content and identifies potentially unwanted or suspicious messages.
+        <div class="text-center mb-5">
+            <div class="hero-chip mb-3">
+                <i class="fas fa-sitemap text-cyan me-2"></i>System Architecture & ML Pipeline
+            </div>
+            <h1 class="display-5 fw-bold text-white mb-2">
+                Under the Hood of <span class="gradient-text">MailVision</span>
+            </h1>
+            <p class="text-secondary fs-6 mx-auto" style="max-width: 680px;">
+                MailVision merges traditional natural language processing, supervised probability estimators, and deterministic cybersecurity heuristics into a robust defense against unwanted communications.
             </p>
         </div>
 
         <!-- End-to-End Pipeline Card -->
         <div class="cyber-card mb-4">
             <div class="cyber-card-header">
-                <span><i class="fas fa-sitemap me-2 text-info"></i>End-to-End Machine Learning Pipeline</span>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-microchip me-2 text-cyan"></i>
+                    <span>End-to-End Machine Learning Pipeline</span>
+                </div>
             </div>
-            <div class="cyber-card-body text-center py-4">
-                <div class="row g-2 align-items-center justify-content-center">
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-database text-info display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">Dataset</div>
+            <div class="cyber-card-body py-4">
+                <div class="row g-3 align-items-center justify-content-center text-center">
+                    <div class="col-6 col-md-2">
+                        <div class="p-3 rounded-3" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                            <i class="fas fa-database text-cyan fs-4 mb-2"></i>
+                            <div class="fw-bold text-white small">1. SMS Corpus</div>
+                            <div class="text-muted small">5,574 Messages</div>
                         </div>
                     </div>
-                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-filter text-info display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">Preprocessing</div>
+                    <div class="col-1 d-none d-md-block text-secondary"><i class="fas fa-arrow-right"></i></div>
+                    <div class="col-6 col-md-2">
+                        <div class="p-3 rounded-3" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                            <i class="fas fa-filter text-cyan fs-4 mb-2"></i>
+                            <div class="fw-bold text-white small">2. NLTK Clean</div>
+                            <div class="text-muted small">Lemmatization</div>
                         </div>
                     </div>
-                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-calculator text-info display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">TF-IDF</div>
+                    <div class="col-1 d-none d-md-block text-secondary"><i class="fas fa-arrow-right"></i></div>
+                    <div class="col-6 col-md-2">
+                        <div class="p-3 rounded-3" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                            <i class="fas fa-network-wired text-cyan fs-4 mb-2"></i>
+                            <div class="fw-bold text-white small">3. TF-IDF</div>
+                            <div class="text-muted small">5,000 N-Grams</div>
                         </div>
                     </div>
-                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-brain text-info display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">Model Training</div>
+                    <div class="col-1 d-none d-md-block text-secondary"><i class="fas fa-arrow-right"></i></div>
+                    <div class="col-6 col-md-2">
+                        <div class="p-3 rounded-3" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                            <i class="fas fa-brain text-cyan fs-4 mb-2"></i>
+                            <div class="fw-bold text-white small">4. Naive Bayes</div>
+                            <div class="text-muted small">Probabilities</div>
                         </div>
                     </div>
-                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-chart-line text-info display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">Model Evaluation</div>
-                        </div>
-                    </div>
-                    <div class="col-1 d-none d-md-block"><i class="fas fa-arrow-right text-muted"></i></div>
-                    <div class="col-6 col-md-2 mb-2">
-                        <div class="p-3 border rounded bg-dark" style="border-color:var(--card-border)!important;">
-                            <i class="fas fa-shield-alt text-success display-6 mb-2"></i>
-                            <div class="fw-bold text-white small">Spam/Ham Prediction</div>
+                    <div class="col-1 d-none d-md-block text-secondary"><i class="fas fa-arrow-right"></i></div>
+                    <div class="col-6 col-md-2">
+                        <div class="p-3 rounded-3" style="background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.3);">
+                            <i class="fas fa-shield-alt text-success fs-4 mb-2"></i>
+                            <div class="fw-bold text-success small">5. Verified</div>
+                            <div class="text-muted small">Risk Verdict</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Evaluation Benchmarks Card -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-chart-line me-2 text-cyan"></i>
+                    <span>Trained Classifier Benchmark Metrics (Test Set N = 1,114)</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-0">
+                <div class="table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Model Algorithm</th>
+                                <th>Accuracy</th>
+                                <th>Precision (Spam)</th>
+                                <th>Recall (Spam)</th>
+                                <th>F1 Score</th>
+                                <th>Deployment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(56, 189, 248, 0.06);">
+                                <td class="fw-bold text-white">
+                                    <i class="fas fa-check-circle text-cyan me-1"></i>Multinomial Naive Bayes
+                                </td>
+                                <td class="font-monospace text-cyan fw-bold">98.38%</td>
+                                <td class="font-monospace text-success fw-bold">99.25%</td>
+                                <td class="font-monospace text-white">88.59%</td>
+                                <td class="font-monospace text-white">0.9362</td>
+                                <td>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 font-monospace">
+                                        ACTIVE DEPLOYMENT
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Linear SVM (Calibrated)</td>
+                                <td class="font-monospace">99.19%</td>
+                                <td class="font-monospace">99.30%</td>
+                                <td class="font-monospace">94.63%</td>
+                                <td class="font-monospace">0.9691</td>
+                                <td><span class="text-muted small font-monospace">Benchmark</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-secondary">Logistic Regression</td>
+                                <td class="font-monospace">98.03%</td>
+                                <td class="font-monospace">99.22%</td>
+                                <td class="font-monospace">85.91%</td>
+                                <td class="font-monospace">0.9209</td>
+                                <td><span class="text-muted small font-monospace">Benchmark</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- Detailed Breakdown -->
-        <div class="row mb-4">
-            <div class="col-md-6 mb-4">
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
                 <div class="cyber-card h-100">
                     <div class="cyber-card-header">
-                        <span><i class="fas fa-cogs me-2 text-info"></i>Machine Learning & Evaluation</span>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-brain me-2 text-cyan"></i>
+                            <span>Probabilistic ML Engine</span>
+                        </div>
                     </div>
                     <div class="cyber-card-body">
                         <ul class="list-unstyled text-secondary mb-0">
                             <li class="mb-3">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Text Preprocessing:</strong> Lowercasing, HTML stripping, URL & entity tokenization, stopword filtering, and WordNet lemmatization.
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>Text Normalization:</strong> Lowercasing, HTML tag stripping, URL normalization, entity extraction, and WordNet lemmatization.
                             </li>
                             <li class="mb-3">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>TF-IDF Feature Extraction:</strong> Unigram and Bigram term frequency-inverse document frequency matrix construction (sublinear TF scaling).
-                            </li>
-                            <li class="mb-3">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Multinomial Naive Bayes:</strong> Primary deployed model for probabilistic spam classification.
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>TF-IDF Vectorization:</strong> Sublinear TF scaling with 1-2 n-gram combinations across a 5,000 feature sparse vocabulary.
                             </li>
                             <li class="mb-0">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Offline Model Evaluation:</strong> Compares Naive Bayes, Logistic Regression, and Linear SVM performance metrics (Accuracy, Precision, Recall, F1 Score, Confusion Matrix) saved in <code>model/metrics.json</code>.
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>True Probability Output:</strong> Returns uncompromised mathematical posterior probabilities for Spam and Ham.
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6">
                 <div class="cyber-card h-100">
                     <div class="cyber-card-header">
-                        <span><i class="fas fa-search me-2 text-info"></i>Rule Engine Heuristics</span>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-shield-virus me-2 text-cyan"></i>
+                            <span>Heuristic Rules & Threat Indicators</span>
+                        </div>
                     </div>
                     <div class="cyber-card-body">
                         <ul class="list-unstyled text-secondary mb-0">
                             <li class="mb-3">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Urgency & Prize Detection:</strong> Scans for high-pressure wording ("act now", "claim prize", "immediate action").
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>Urgency & Prize Scams:</strong> High-pressure phrasing ("act immediately", "claim prize", "exclusive reward").
                             </li>
                             <li class="mb-3">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>Financial Risk Flags:</strong> Flags requests for credentials, credit cards, bank accounts, or SSNs.
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>Credential Harvesting:</strong> Suspicious links asking for passwords, 2FA codes, or banking verification.
                             </li>
                             <li class="mb-0">
-                                <strong class="text-white"><i class="fas fa-check text-info me-2"></i>URL & Formatting Analysis:</strong> Identifies raw IP links, domain shorteners, phone numbers, and SHOUTING caps.
+                                <strong class="text-white"><i class="fas fa-check text-cyan me-2"></i>Obfuscated Links:</strong> Detects URL shorteners (bit.ly, tinyurl), raw IPv4 URLs, and malicious character shouting.
                             </li>
                         </ul>
                     </div>

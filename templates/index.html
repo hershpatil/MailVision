@@ -1,56 +1,72 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - MailVision{% endblock %}
+{% block title %}Detector - MailVision{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-10">
-        <!-- Header Banner -->
-        <div class="text-center mb-4">
-            <h1 class="fw-bold text-white mb-2 d-flex align-items-center justify-content-center">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="MailVision Logo" class="hero-logo me-3">
-                MailVision
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <div class="hero-chip mb-3">
+                <i class="fas fa-microchip me-2"></i>Multi-Layered NLP & Heuristic Classifier
+            </div>
+            <h1 class="display-5 fw-bold text-white mb-3">
+                Intelligent Email & Message <span class="gradient-text">Spam Shield</span>
             </h1>
-            <p class="text-secondary fs-5">
-                Intelligent Email Spam Detection
+            <p class="text-secondary fs-6 mx-auto" style="max-width: 650px;">
+                Analyze suspicious messages in real-time. MailVision combines trained Naive Bayes machine learning with behavioral risk heuristics to uncover phishing, scams, and deceptive content.
             </p>
         </div>
 
         <!-- Analyzer Card -->
         <div class="cyber-card mb-4">
-            <div class="cyber-card-header">
-                <span><i class="fas fa-terminal me-2 text-info"></i>Analyze Message Content</span>
-                <div>
-                    <span class="small-label small me-2">Preset Samples:</span>
-                    <button type="button" class="preset-btn" data-sample="spam"><i class="fas fa-bug text-danger me-1"></i>Spam</button>
-                    <button type="button" class="preset-btn" data-sample="phishing"><i class="fas fa-fish text-warning me-1"></i>Phishing</button>
-                    <button type="button" class="preset-btn" data-sample="ham"><i class="fas fa-shield-alt text-success me-1"></i>Safe (Ham)</button>
+            <div class="cyber-card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-terminal me-2 text-cyan"></i>
+                    <span>Message Analysis Console</span>
+                </div>
+                <div class="d-flex flex-wrap align-items-center">
+                    <span class="text-muted small me-2 d-none d-sm-inline">Quick Presets:</span>
+                    <button type="button" class="preset-btn" data-sample="spam">
+                        <i class="fas fa-bug text-danger me-1"></i>Spam Prize
+                    </button>
+                    <button type="button" class="preset-btn" data-sample="phishing">
+                        <i class="fas fa-fish text-warning me-1"></i>Phishing Alert
+                    </button>
+                    <button type="button" class="preset-btn" data-sample="ham">
+                        <i class="fas fa-shield-alt text-success me-1"></i>Safe Work Email
+                    </button>
                 </div>
             </div>
+
             <div class="cyber-card-body">
                 <form id="analyze-form">
                     <div class="mb-3">
-                        <textarea id="message-input" class="form-control cyber-textarea" rows="6" placeholder="Paste your email or message content here for instant spam detection analysis..."></textarea>
+                        <textarea id="message-input" class="form-control cyber-textarea" rows="7" placeholder="Paste your email copy, SMS text, or suspicious notification here for instant inspection..."></textarea>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-secondary small">
-                            Characters: <span id="char-count" class="text-info fw-bold">0</span> |
-                            Words: <span id="word-count" class="text-info fw-bold">0</span>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 pt-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="stat-pill">
+                                Characters: <strong id="char-count" class="text-cyan font-monospace">0</strong>
+                            </span>
+                            <span class="stat-pill">
+                                Words: <strong id="word-count" class="text-cyan font-monospace">0</strong>
+                            </span>
                         </div>
-                        <div>
-                            <button type="button" id="btn-clear" class="btn btn-cyber-outline me-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="button" id="btn-clear" class="btn btn-cyber-outline">
                                 <i class="fas fa-eraser me-1"></i>Clear
                             </button>
                             <button type="submit" id="btn-analyze" class="btn btn-cyber-primary">
-                                <i class="fas fa-search me-1"></i>Analyze Message
+                                <i class="fas fa-bolt me-1"></i>Inspect Content
                             </button>
                         </div>
                     </div>
                 </form>
 
                 <!-- Error Alert -->
-                <div id="error-alert" class="alert alert-danger mt-3 d-none" role="alert">
+                <div id="error-alert" class="alert alert-danger mt-3 d-none border-danger-subtle bg-danger-subtle text-danger" role="alert">
                     <i class="fas fa-exclamation-circle me-2"></i><span id="error-message"></span>
                 </div>
             </div>
@@ -58,34 +74,41 @@
 
         <!-- Loading State -->
         <div id="loading-state" class="text-center py-5 d-none">
-            <div class="spinner-border spinner-border-cyber" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div class="spinner-border spinner-border-cyber mb-3" role="status">
+                <span class="visually-hidden">Analyzing...</span>
             </div>
-            <p class="text-secondary mt-3 font-monospace">Analyzing message features and running ML classification...</p>
+            <h5 class="text-white fw-bold mb-1">Evaluating Threat Vectors</h5>
+            <p class="text-secondary small font-monospace">Extracting TF-IDF features &bull; Calculating Multinomial Naive Bayes probabilities &bull; Scoring heuristic indicators</p>
         </div>
 
         <!-- Result Section -->
         <div id="result-section" class="d-none">
-            <!-- Banner -->
+            <!-- Verdict Banner -->
             <div id="banner-container" class="mb-4"></div>
 
-            <div class="row">
+            <div class="row g-4 mb-4">
                 <!-- Confidence & Probability Breakdown -->
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                     <div class="cyber-card h-100">
                         <div class="cyber-card-header">
-                            <span><i class="fas fa-chart-pie me-2 text-info"></i>Prediction Confidence</span>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-chart-pie me-2 text-cyan"></i>
+                                <span>Classification Confidence</span>
+                            </div>
+                            <span class="badge bg-dark border border-secondary-subtle font-monospace text-secondary">
+                                Model v1.0
+                            </span>
                         </div>
                         <div class="cyber-card-body d-flex flex-column justify-content-center">
-                            <div class="text-center mb-3">
-                                <span class="small-label small">Model Confidence Score</span>
-                                <div id="confidence-value" class="display-4 font-weight-bold text-white">0%</div>
+                            <div class="text-center my-3">
+                                <div class="text-secondary small mb-1">Primary Prediction Confidence</div>
+                                <div id="confidence-value" class="display-3 fw-bold text-white font-monospace">0%</div>
                             </div>
 
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between small text-secondary mb-1">
-                                    <span class="probability-label">Spam Probability</span>
-                                    <span id="spam-prob-val" class="text-danger fw-bold">0%</span>
+                                    <span><i class="fas fa-radiation text-danger me-1"></i>Spam Probability</span>
+                                    <span id="spam-prob-val" class="text-danger fw-bold font-monospace">0%</span>
                                 </div>
                                 <div class="progress progress-cyber">
                                     <div id="spam-progress-bar" class="progress-bar progress-bar-spam" style="width: 0%"></div>
@@ -94,8 +117,8 @@
 
                             <div>
                                 <div class="d-flex justify-content-between small text-secondary mb-1">
-                                    <span class="probability-label">Ham (Safe) Probability</span>
-                                    <span id="ham-prob-val" class="text-success fw-bold">0%</span>
+                                    <span><i class="fas fa-check-shield text-success me-1"></i>Safe (Ham) Probability</span>
+                                    <span id="ham-prob-val" class="text-success fw-bold font-monospace">0%</span>
                                 </div>
                                 <div class="progress progress-cyber">
                                     <div id="ham-progress-bar" class="progress-bar progress-bar-ham" style="width: 0%"></div>
@@ -106,13 +129,16 @@
                 </div>
 
                 <!-- Detected Heuristic Indicators -->
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                     <div class="cyber-card h-100">
                         <div class="cyber-card-header">
-                            <span><i class="fas fa-list-check me-2 text-info"></i>Detected Risk Indicators</span>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-shield-virus me-2 text-cyan"></i>
+                                <span>Heuristic Risk Signals</span>
+                            </div>
                         </div>
                         <div class="cyber-card-body" id="indicators-list">
-                            <!-- Indicator items dynamically populated -->
+                            <!-- Indicator items populated dynamically -->
                         </div>
                     </div>
                 </div>
@@ -121,11 +147,14 @@
             <!-- Message Statistics Grid -->
             <div class="cyber-card mb-4">
                 <div class="cyber-card-header">
-                    <span><i class="fas fa-calculator me-2 text-info"></i>Message Statistics</span>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-chart-bar me-2 text-cyan"></i>
+                        <span>Extracted Structural Metrics</span>
+                    </div>
                 </div>
                 <div class="cyber-card-body">
-                    <div class="row" id="stats-grid">
-                        <!-- Stats populating here -->
+                    <div class="row g-3" id="stats-grid">
+                        <!-- Stats tiles populate here -->
                     </div>
                 </div>
             </div>

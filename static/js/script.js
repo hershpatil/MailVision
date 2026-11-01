@@ -133,18 +133,18 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isSpam) {
                 bannerContainer.className = 'result-banner-spam';
                 bannerContainer.innerHTML = `
-                    <div class="banner-title"><i class="fas fa-exclamation-triangle me-2"></i>SPAM DETECTED</div>
-                    <div>High risk of unwanted, promotional, or phishing content detected.</div>
+                    <div class="banner-title"><i class="fas fa-exclamation-triangle me-2"></i>SPAM / THREAT DETECTED</div>
+                    <div class="text-secondary">High probability of unwanted, promotional, scam, or phishing content identified.</div>
                 `;
             } else {
                 const hasIndicators = data.indicators && data.indicators.length > 0;
                 const hamSubtitle = hasIndicators
-                    ? 'Classified as safe, but risk indicators were detected \u2014 review the details below.'
-                    : 'No significant spam or phishing indicators detected.';
+                    ? 'Classified as safe, but cautionary risk indicators were detected — review the heuristics below.'
+                    : 'Clean message body — no significant spam, phishing, or financial risk indicators detected.';
                 bannerContainer.className = 'result-banner-ham';
                 bannerContainer.innerHTML = `
-                    <div class="banner-title"><i class="fas fa-check-circle me-2"></i>MESSAGE APPEARS SAFE (HAM)</div>
-                    <div>${hamSubtitle}</div>
+                    <div class="banner-title"><i class="fas fa-shield-check me-2"></i>MESSAGE APPEARS SAFE (HAM)</div>
+                    <div class="text-secondary">${hamSubtitle}</div>
                 `;
             }
         }
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     indicatorsList.appendChild(item);
                 });
             } else {
-                indicatorsList.innerHTML = '<p class="text-muted small">No suspicious rule-based heuristics triggered.</p>';
+                indicatorsList.innerHTML = '<div class="text-center py-4 text-muted small"><i class="fas fa-shield-check text-success me-2"></i>No suspicious heuristic rules were triggered.</div>';
             }
         }
 
@@ -182,28 +182,32 @@ document.addEventListener('DOMContentLoaded', function () {
         if (statsContainer && data.statistics) {
             const st = data.statistics;
             statsContainer.innerHTML = `
-                <div class="col-6 col-md-3 mb-3">
-                    <div class="p-3 border rounded text-center" style="background:#0d1322; border-color:var(--card-border)!important;">
-                        <div class="stat-label small">Words</div>
-                        <div class="h4 font-weight-bold text-white mb-0">${st.word_count}</div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                        <i class="fas fa-file-word text-cyan mb-2 fs-5"></i>
+                        <div class="text-secondary small fw-semibold">Words</div>
+                        <div class="h3 fw-bold text-white mb-0 font-monospace">${st.word_count}</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <div class="p-3 border rounded text-center" style="background:#0d1322; border-color:var(--card-border)!important;">
-                        <div class="stat-label small">Characters</div>
-                        <div class="h4 font-weight-bold text-white mb-0">${st.character_count}</div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                        <i class="fas fa-font text-cyan mb-2 fs-5"></i>
+                        <div class="text-secondary small fw-semibold">Characters</div>
+                        <div class="h3 fw-bold text-white mb-0 font-monospace">${st.character_count}</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <div class="p-3 border rounded text-center" style="background:#0d1322; border-color:var(--card-border)!important;">
-                        <div class="stat-label small">URLs</div>
-                        <div class="h4 font-weight-bold text-white mb-0">${st.url_count}</div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                        <i class="fas fa-link text-cyan mb-2 fs-5"></i>
+                        <div class="text-secondary small fw-semibold">URLs Extracted</div>
+                        <div class="h3 fw-bold text-white mb-0 font-monospace">${st.url_count}</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-3">
-                    <div class="p-3 border rounded text-center" style="background:#0d1322; border-color:var(--card-border)!important;">
-                        <div class="stat-label small">Suspicious Keywords</div>
-                        <div class="h4 font-weight-bold text-white mb-0">${st.keyword_count}</div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 rounded-3 text-center" style="background:rgba(13, 21, 39, 0.7); border:1px solid var(--card-border);">
+                        <i class="fas fa-radiation text-warning mb-2 fs-5"></i>
+                        <div class="text-secondary small fw-semibold">Threat Keywords</div>
+                        <div class="h3 fw-bold text-white mb-0 font-monospace">${st.keyword_count}</div>
                     </div>
                 </div>
             `;

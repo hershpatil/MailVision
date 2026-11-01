@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}Prediction History - MailVision{% endblock %}
+{% block title %}Prediction Audit Log - MailVision{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-11">
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
             <div>
+                <div class="hero-chip mb-2">
+                    <i class="fas fa-database text-cyan me-2"></i>Persistent SQLite Audit Log
+                </div>
                 <h2 class="fw-bold text-white mb-1">
-                    <i class="fas fa-history text-info me-2"></i>Prediction History Log
+                    Prediction History <span class="gradient-text">Audit Log</span>
                 </h2>
-                <p class="text-secondary mb-0">
-                    Anonymous log of recent MailVision analysis requests stored in SQLite. (Raw email text is omitted for privacy).
+                <p class="text-secondary small mb-0">
+                    Cryptographic and statistical metadata of all executed checks. Raw message texts are strictly omitted to safeguard user privacy.
                 </p>
             </div>
-            <button id="btn-clear-history" class="btn btn-outline-danger btn-sm">
-                <i class="fas fa-trash me-1"></i>Clear History
+            <button id="btn-clear-history" class="btn btn-outline-danger btn-sm px-3 py-2 rounded-pill">
+                <i class="fas fa-trash me-1"></i>Clear Audit Records
             </button>
         </div>
 
@@ -25,14 +29,14 @@
                     <table class="history-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Timestamp</th>
-                                <th>Prediction</th>
+                                <th>Record ID</th>
+                                <th>Timestamp (UTC)</th>
+                                <th>Verdict</th>
                                 <th>Confidence</th>
-                                <th>Spam Prob</th>
-                                <th>Ham Prob</th>
-                                <th>Word Count</th>
-                                <th>URL Count</th>
+                                <th>Spam Score</th>
+                                <th>Ham Score</th>
+                                <th>Words</th>
+                                <th>URLs</th>
                             </tr>
                         </thead>
                         <tbody id="history-tbody">
@@ -42,8 +46,9 @@
                 </div>
 
                 <div id="history-empty" class="text-center py-5 d-none">
-                    <i class="fas fa-inbox display-4 mb-3" style="color: #64748b;"></i>
-                    <p style="color: #cbd5e1;">No analysis predictions logged in history yet.</p>
+                    <i class="fas fa-inbox display-4 mb-3 text-muted"></i>
+                    <h5 class="text-white fw-bold mb-1">No Records Found</h5>
+                    <p class="text-secondary small">Perform an analysis from the home screen or run a Gmail scan to populate the audit log.</p>
                 </div>
             </div>
         </div>
@@ -59,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const clearBtn = document.getElementById('btn-clear-history');
     if (clearBtn) {
         clearBtn.addEventListener('click', function () {
-            if (confirm('Are you sure you want to clear all prediction history logs?')) {
+            if (confirm('Are you sure you want to purge all prediction history records from the local SQLite database?')) {
                 fetch('/api/history/clear', { method: 'POST' })
                     .then(res => res.json())
                     .then(data => {
@@ -86,25 +91,28 @@ function loadHistory() {
                     const tr = document.createElement('tr');
                     const isSpam = item.prediction === 'SPAM';
                     const badgeHtml = isSpam
-                        ? '<span class="badge-spam">SPAM</span>'
-                        : '<span class="badge-ham">HAM</span>';
+                        ? '<span class="badge-spam"><i class="fas fa-bug me-1"></i>SPAM</span>'
+                        : '<span class="badge-ham"><i class="fas fa-shield-alt me-1"></i>HAM (SAFE)</span>';
 
                     tr.innerHTML = `
-                        <td class="cell-id">#${item.id}</td>
-                        <td class="cell-timestamp font-monospace">${item.timestamp}</td>
+                        <td class="font-monospace text-cyan fw-bold">#${item.id}</td>
+                        <td class="font-monospace text-secondary small">${item.timestamp}</td>
                         <td>${badgeHtml}</td>
-                        <td class="cell-confidence">${item.confidence}%</td>
-                        <td class="cell-spam-prob">${item.spam_probability}%</td>
-                        <td class="cell-ham-prob">${item.ham_probability}%</td>
-                        <td class="cell-number">${item.word_count}</td>
-                        <td class="cell-number">${item.url_count}</td>
+                        <td class="font-monospace fw-bold text-white">${item.confidence}%</td>
+                        <td class="font-monospace text-danger">${item.spam_probability}%</td>
+                        <td class="font-monospace text-success">${item.ham_probability}%</td>
+                        <td class="font-monospace text-secondary">${item.word_count}</td>
+                        <td class="font-monospace text-secondary">${item.url_count}</td>
                     `;
                     tbody.appendChild(tr);
                 });
             } else {
-                if (tbody) tbody.innerHTML = '';
-                if (emptyState) emptyState.classList.remove('d-none');
+                tbody.innerHTML = '';
+                emptyState.classList.remove('d-none');
             }
+        })
+        .catch(err => {
+            console.error('Failed to load history:', err);
         });
 }
 </script>
