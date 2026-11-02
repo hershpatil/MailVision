@@ -56,5 +56,35 @@ class TestFlaskRoutes(unittest.TestCase):
         response_after = self.app.get('/api/history')
         self.assertEqual(len(response_after.get_json()['history']), 0)
 
+    def test_privacy_page_accessible(self):
+        """Verify /privacy route is publicly accessible, returns 200, and contains Privacy Policy content."""
+        response = self.app.get('/privacy')
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+        self.assertIn("Privacy Policy", html)
+        self.assertIn("gmail.readonly", html)
+        self.assertIn("OAuth 2.0", html)
+        self.assertIn("Disconnect Account", html)
+
+    def test_terms_page_accessible(self):
+        """Verify /terms route is publicly accessible, returns 200, and contains Terms of Service content."""
+        response = self.app.get('/terms')
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+        self.assertIn("Terms of Service", html)
+        self.assertIn("Acceptable Use", html)
+        self.assertIn("Limitations of Spam Detection Accuracy", html)
+        self.assertIn("Disconnect Account", html)
+
+    def test_vercel_rewrite_for_legal_pages(self):
+        """Verify Vercel rewrite parameter (?path=...) resolves /privacy and /terms properly."""
+        privacy_resp = self.app.get('/api/index?path=privacy')
+        self.assertEqual(privacy_resp.status_code, 200)
+        self.assertIn("Privacy Policy", privacy_resp.get_data(as_text=True))
+
+        terms_resp = self.app.get('/api/index?path=terms')
+        self.assertEqual(terms_resp.status_code, 200)
+        self.assertIn("Terms of Service", terms_resp.get_data(as_text=True))
+
 if __name__ == "__main__":
     unittest.main()

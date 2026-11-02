@@ -1,0 +1,353 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - MailVision Threat Detection Platform{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <div class="hero-chip mb-3">
+                <i class="fas fa-user-shield text-cyan me-2"></i>Legal &amp; Privacy Information
+            </div>
+            <h1 class="display-5 fw-bold text-white mb-2">
+                Privacy <span class="gradient-text">Policy</span>
+            </h1>
+            <p class="text-secondary fs-6 mx-auto" style="max-width: 720px;">
+                MailVision is an email spam detection and security analysis application. This Privacy Policy explains transparently how our application handles your information, connects with the Google Gmail API, processes email data, and safeguards your privacy.
+            </p>
+            <div class="text-muted small mt-2">
+                <i class="far fa-calendar-alt me-1"></i>Last Updated: November 2026 &bull; Effective Immediately
+            </div>
+        </div>
+
+        <!-- Key Highlights Overview -->
+        <div class="cyber-card mb-4 border-info">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-shield-check text-cyan me-2"></i>
+                    <span>Privacy at a Glance</span>
+                </div>
+                <span class="badge bg-info text-dark font-monospace fw-bold">Summary</span>
+            </div>
+            <div class="cyber-card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 rounded-3 h-100 text-center" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <i class="fas fa-ban text-danger fs-3 mb-2"></i>
+                            <div class="fw-bold text-white small">No Message Retention</div>
+                            <div class="text-muted small mt-1">Raw email text is never stored in our database.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 rounded-3 h-100 text-center" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <i class="fab fa-google text-danger fs-3 mb-2"></i>
+                            <div class="fw-bold text-white small">Read-Only Scope</div>
+                            <div class="text-muted small mt-1">Cannot send, edit, label, or delete your emails.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 rounded-3 h-100 text-center" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <i class="fas fa-key text-warning fs-3 mb-2"></i>
+                            <div class="fw-bold text-white small">Encrypted Tokens</div>
+                            <div class="text-muted small mt-1">Tokens are encrypted at rest with HMAC authentication.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="p-3 rounded-3 h-100 text-center" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <i class="fas fa-hand-holding-usd text-success fs-3 mb-2"></i>
+                            <div class="fw-bold text-white small">No Data Selling</div>
+                            <div class="text-muted small mt-1">We never sell or monetize any user or email data.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Overview & Application Purpose -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-info-circle text-cyan me-2"></i>
+                    <span>1. Application Overview &amp; Purpose</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    MailVision is an email security and spam classification platform designed to identify unwanted, deceptive, and malicious communications. The application utilizes a dual-engine architecture combining supervised Machine Learning (Multinomial Naive Bayes trained with TF-IDF vectorization) and deterministic heuristic rules (evaluating suspicious links, urgent phrasing, financial credential requests, and scam indicators).
+                </p>
+                <p class="text-secondary mb-0">
+                    MailVision is built to empower users with actionable security intelligence about their incoming messages while strictly respecting user confidentiality and minimizing data collection.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Google OAuth Sign-In & Gmail Integration -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fab fa-google text-danger me-2"></i>
+                    <span>2. Google OAuth 2.0 Sign-In &amp; Permissions</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-lock text-cyan me-1"></i> Google OAuth 2.0 Authentication
+                </h6>
+                <p class="text-secondary mb-3">
+                    MailVision offers an optional Google OAuth 2.0 integration that allows you to connect your Gmail account securely. Authentication is performed directly on Google's secure authorization servers. MailVision never receives, sees, or stores your Google account password.
+                </p>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-eye text-cyan me-1"></i> Gmail API Read-Only Permission Scope
+                </h6>
+                <p class="text-secondary mb-3">
+                    MailVision requests access strictly to the following restricted Google OAuth scope:
+                </p>
+                <div class="p-3 rounded-3 mb-3" style="background: rgba(13, 21, 39, 0.85); border: 1px solid var(--card-border);">
+                    <code class="text-cyan font-monospace">https://www.googleapis.com/auth/gmail.readonly</code>
+                </div>
+                <div class="alert alert-dark border-secondary mb-0" style="background: rgba(15, 23, 42, 0.9);">
+                    <div class="d-flex align-items-start">
+                        <i class="fas fa-shield-alt text-cyan fs-5 me-3 mt-1"></i>
+                        <div>
+                            <strong class="text-white">Strict Read-Only Enforcement:</strong>
+                            <p class="text-secondary small mb-0 mt-1">
+                                MailVision has <strong>no permission, no capability, and no programming logic</strong> to send emails, create drafts, delete messages, modify inbox content, mark messages as read, or modify labels or settings in your Gmail account. We read only message metadata and content necessary to calculate spam probabilities on demand.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: On-Demand Scanning & Content Processing -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-radar text-cyan me-2"></i>
+                    <span>3. On-Demand Scanning &amp; Model Processing</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-hand-pointer text-cyan me-1"></i> On-Demand Execution (No Background Polling)
+                </h6>
+                <p class="text-secondary mb-3">
+                    MailVision operates <strong>strictly on demand</strong>. The application does not continuously monitor your inbox, does not run background listening jobs, does not register persistent webhooks, and does not scrape messages when you are not using the application. Inbox scanning is initiated solely when you explicitly click the "Scan Inbox" button.
+                </p>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-list-ol text-cyan me-1"></i> Limited Batch Size (Latest 5 Emails)
+                </h6>
+                <p class="text-secondary mb-3">
+                    When you trigger an on-demand scan, MailVision retrieves only the <strong>latest 5 emails</strong> (or configured batch size) from your Gmail primary inbox. You may optionally page through subsequent batches on demand.
+                </p>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-brain text-cyan me-1"></i> In-Memory Machine Learning Classification
+                </h6>
+                <p class="text-secondary mb-0">
+                    Each fetched email's subject and body text are combined and processed entirely in temporary server memory by our local spam classification model. The text is analyzed for vocabulary frequency, phishing patterns, URL structures, and high-risk terms. Once the classification verdict, confidence level, and indicator list are computed, the structured results are returned directly to your browser for display.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 4: Data Collection, Storage, Retention, and Deletion -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-database text-cyan me-2"></i>
+                    <span>4. Data Collection, Storage, Retention, and Deletion</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    Based on a transparent review of our codebase, here is exactly what data is stored, what is never stored, and how it is retained or deleted:
+                </p>
+
+                <div class="table-responsive mb-4">
+                    <table class="table table-dark table-bordered border-secondary" style="background: rgba(13, 21, 39, 0.6);">
+                        <thead>
+                            <tr class="text-cyan">
+                                <th style="width: 25%;">Data Category</th>
+                                <th style="width: 35%;">Current Implementation Behavior</th>
+                                <th style="width: 40%;">Retention &amp; Deletion Policy</th>
+                            </tr>
+                        </thead>
+                        <tbody class="small text-secondary">
+                            <tr>
+                                <td class="fw-bold text-white">Email Content &amp; Attachments</td>
+                                <td>
+                                    <span class="badge bg-success-subtle text-success me-1">Never Stored</span>
+                                    Subject lines, bodies, sender addresses, and email text are processed strictly in volatile memory.
+                                </td>
+                                <td>Not saved to any database or persistent disk. Exists only in volatile memory during the active HTTP request.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-white">OAuth Tokens &amp; Credentials</td>
+                                <td>
+                                    <span class="badge bg-warning-subtle text-warning me-1">Encrypted at Rest</span>
+                                    Access and refresh tokens are stored in the <code class="text-cyan font-monospace">gmail_tokens</code> table in encrypted form.
+                                </td>
+                                <td>Retained while your account is connected. Permanently deleted immediately when you click <strong>Disconnect Account</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-white">Prediction Metrics (Audit Log)</td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-cyan me-1">Anonymous Metadata</span>
+                                    Logs timestamp, classification verdict (SPAM/HAM), confidence %, and token/URL counts. <em>No raw email text.</em>
+                                </td>
+                                <td>Retained in the <code class="text-cyan font-monospace">predictions</code> table. Can be wiped at any time by the user via the <strong>Clear History</strong> button.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-white">User Accuracy Feedback</td>
+                                <td>
+                                    <span class="badge bg-secondary me-1">Optional Feedback</span>
+                                    Stores Gmail message ID, anonymous session ID, classification, and user choice (Correct/Incorrect).
+                                </td>
+                                <td>Stored in <code class="text-cyan font-monospace">scan_feedback</code> to evaluate heuristic efficacy. Contains zero email text or user identities.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-trash-alt text-cyan me-1"></i> How to Delete Your Data
+                </h6>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">
+                        <strong>Disconnecting Your Gmail Account:</strong> You can disconnect your Google account at any moment by clicking the "Disconnect Account" button in the Gmail dashboard. This action immediately invokes our disconnection handler (<code class="text-cyan font-monospace">/gmail/disconnect</code>), which permanently purges your session record and encrypted OAuth tokens from our database.
+                    </li>
+                    <li class="mb-0">
+                        <strong>Clearing Prediction History:</strong> You can purge anonymous prediction logs at any time from the Audit Log page (<code class="text-cyan font-monospace">/history</code>) by clicking "Clear History" (<code class="text-cyan font-monospace">/api/history/clear</code>).
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 5: OAuth Token Security & Encryption at Rest -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-lock text-cyan me-2"></i>
+                    <span>5. OAuth Token Security &amp; Encryption at Rest</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    MailVision treats authorization tokens with strict cryptographic safeguards:
+                </p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 rounded-3 h-100" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <div class="fw-bold text-white mb-2">
+                                <i class="fas fa-file-shield text-cyan me-2"></i>Authenticated Symmetric Encryption
+                            </div>
+                            <p class="text-secondary small mb-0">
+                                Stored OAuth access tokens and refresh tokens are protected using an <strong>Encrypt-then-MAC authenticated encryption scheme</strong> (HMAC-SHA256). Each token is encrypted using a cryptographically random 16-byte initialization vector (IV) and verified against tampering before decryption.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 rounded-3 h-100" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                            <div class="fw-bold text-white mb-2">
+                                <i class="fas fa-cookie-bite text-cyan me-2"></i>Secure Session Isolation
+                            </div>
+                            <p class="text-secondary small mb-0">
+                                Tokens are mapped strictly to an ephemeral, randomly generated session ID stored in an <code class="text-cyan font-monospace">HttpOnly</code>, <code class="text-cyan font-monospace">SameSite=Lax</code> secure cookie. OAuth authorization flows are guarded against Cross-Site Request Forgery (CSRF) using cryptographically signed HMAC state tokens.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: No Selling or Commercial Sharing of Data -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-handshake-slash text-cyan me-2"></i>
+                    <span>6. No Selling or Commercial Sharing of Personal Data</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-2">
+                    MailVision maintains a strict privacy standard regarding user data:
+                </p>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">We <strong>do not sell, rent, lease, or monetize</strong> your personal information, email contents, email addresses, or usage patterns to any third parties.</li>
+                    <li class="mb-2">We <strong>do not share</strong> your data with advertising networks, marketing firms, or external data brokers.</li>
+                    <li class="mb-2">We <strong>do not use</strong> user email contents to train generalized commercial AI models or external machine learning services.</li>
+                    <li class="mb-0">MailVision adheres to the Google API Services User Data Policy, including the Limited Use requirements.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 7: User Consent & Revocation of Access -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-user-check text-cyan me-2"></i>
+                    <span>7. User Consent &amp; Revocation of Gmail Access</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    Connecting your Gmail account requires your explicit informed consent via the official Google OAuth consent screen. You retain full control over this connection and may revoke it at any time through either of the following methods:
+                </p>
+                <ol class="text-secondary small mb-3 ps-3">
+                    <li class="mb-2">
+                        <strong>Within MailVision:</strong> Navigate to the <a href="{{ url_for('gmail_page') }}" class="text-cyan text-decoration-none">Gmail Inbox Scanner</a> page and click <strong>Disconnect Account</strong>. This permanently removes your encrypted tokens from our database.
+                    </li>
+                    <li class="mb-0">
+                        <strong>Directly via Google Account Security:</strong> You can manage or revoke third-party app access directly through your Google Account settings by visiting:
+                        <div class="mt-2">
+                            <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" class="text-cyan font-monospace">
+                                https://myaccount.google.com/permissions <i class="fas fa-external-link-alt ms-1 small"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ol>
+                <p class="text-secondary small mb-0">
+                    Once revoked via Google, MailVision's stored tokens will be instantly rejected by Google APIs and will no longer be capable of querying your inbox.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 8: Contact Information Placeholder -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-envelope text-cyan me-2"></i>
+                    <span>8. Project Owner &amp; Contact Information</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    If you have questions, concerns, or requests regarding this Privacy Policy, your data, or the operation of the MailVision application, please reach out using the contact information below:
+                </p>
+                <div class="p-3 rounded-3" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                    <div class="row g-2 small">
+                        <div class="col-sm-4 text-muted">Project Maintainer:</div>
+                        <div class="col-sm-8 text-white fw-bold">[Project Owner / Maintainer Name]</div>
+
+                        <div class="col-sm-4 text-muted">Contact / Support Email:</div>
+                        <div class="col-sm-8 text-white font-monospace">[Project Owner / Support Email - contact@example.com]</div>
+
+                        <div class="col-sm-4 text-muted">Issue Tracker / Repository:</div>
+                        <div class="col-sm-8 text-white font-monospace">[Project Repository URL / Issues Link]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="text-center mt-5 mb-3">
+            <a href="{{ url_for('home') }}" class="btn btn-cyber-outline rounded-pill px-4 py-2 text-decoration-none">
+                <i class="fas fa-arrow-left me-2"></i>Return to MailVision Detector
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

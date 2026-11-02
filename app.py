@@ -184,6 +184,16 @@ def about_page():
     """Render about page."""
     return render_template('about.html')
 
+@app.route('/privacy')
+def privacy_page():
+    """Render Privacy Policy legal page."""
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms_page():
+    """Render Terms of Service legal page."""
+    return render_template('terms.html')
+
 # ----------------------------------------------------------------------
 # Gmail Integration Routes (OAuth 2.0 & On-Demand Inbox Scanning)
 # ----------------------------------------------------------------------

@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block title %}Terms of Service - MailVision Threat Detection Platform{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <div class="hero-chip mb-3">
+                <i class="fas fa-file-contract text-cyan me-2"></i>Legal Agreement &amp; Usage Terms
+            </div>
+            <h1 class="display-5 fw-bold text-white mb-2">
+                Terms of <span class="gradient-text">Service</span>
+            </h1>
+            <p class="text-secondary fs-6 mx-auto" style="max-width: 720px;">
+                Please read these Terms of Service carefully before accessing or using the MailVision application. By accessing or using any part of MailVision, you agree to be bound by these terms.
+            </p>
+            <div class="text-muted small mt-2">
+                <i class="far fa-calendar-alt me-1"></i>Last Updated: November 2026 &bull; Effective Immediately
+            </div>
+        </div>
+
+        <!-- Section 1: Acceptance of Terms -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle text-cyan me-2"></i>
+                    <span>1. Acceptance of Terms</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and MailVision ("MailVision", "we", "us", or "our") concerning your access to and use of the MailVision web application, including its automated message analyzer and on-demand Gmail scanning features.
+                </p>
+                <p class="text-secondary mb-0">
+                    If you do not agree with all of these Terms, you are explicitly prohibited from using MailVision and must discontinue use immediately.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Description of the Service -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-layer-group text-cyan me-2"></i>
+                    <span>2. Description of the Service</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    MailVision provides an intelligent cybersecurity tool for detecting unsolicited, fraudulent, or malicious electronic messages. The service includes:
+                </p>
+                <ul class="text-secondary small mb-3 ps-3">
+                    <li class="mb-2"><strong>Manual Message Analyzer:</strong> An interface allowing users to input email or SMS message text to receive automated risk scoring, spam/ham classification probabilities, and threat indicator breakdowns.</li>
+                    <li class="mb-2"><strong>On-Demand Gmail Inbox Scanner:</strong> An optional integration enabling users to connect their Google account via OAuth 2.0 to scan recent inbox messages (typically the latest 5 emails per request) for potential spam and phishing indicators.</li>
+                    <li class="mb-0"><strong>Prediction Audit Log:</strong> A local history interface displaying anonymous metrics from past manual text analyses.</li>
+                </ul>
+                <p class="text-secondary small mb-0">
+                    MailVision operates as an assistive diagnostic utility for informational, personal, and research purposes.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 3: Acceptable Use Policy -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-balance-scale text-cyan me-2"></i>
+                    <span>3. Acceptable Use Policy</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    You agree to use MailVision only for lawful purposes in accordance with these Terms. You specifically agree not to:
+                </p>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">Connect Google accounts or scan inboxes for which you are not the rightful account owner or do not possess explicit authorization to access.</li>
+                    <li class="mb-2">Use the service to reverse engineer, scrape, overload, launch denial-of-service attacks against, or circumvent rate limits of MailVision or the Google Gmail API.</li>
+                    <li class="mb-2">Utilize MailVision to analyze messages in furtherance of any illegal activity, spam dissemination, harassment, or security vulnerability exploitation.</li>
+                    <li class="mb-2">Interfere with or bypass any security features, authentication tokens, CSRF protections, or encryption mechanisms implemented in MailVision.</li>
+                    <li class="mb-0">Misrepresent MailVision's automated classifications as certified legal or forensic findings.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: User Responsibility for Google Account -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fab fa-google text-danger me-2"></i>
+                    <span>4. User Responsibility for Google Account</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    When connecting your Google account to MailVision, you acknowledge and agree that:
+                </p>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">You are solely responsible for safeguarding the credentials and security of your Google account, devices, and browsers.</li>
+                    <li class="mb-2">MailVision connects to Google services using standard OAuth 2.0 authorization grants provided directly by you through Google's consent screen.</li>
+                    <li class="mb-2">You remain subject to Google's Terms of Service and Privacy Policy when using Google services.</li>
+                    <li class="mb-0">MailVision shall not be held liable for any loss, unauthorized access, or damage arising from your failure to protect your Google account credentials or user session.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 5: Limitations of Spam Detection Accuracy & Disclaimer -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    <span>5. Limitations of Spam Detection Accuracy &amp; Disclaimers</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <div class="alert alert-dark border-warning mb-3" style="background: rgba(245, 158, 11, 0.08);">
+                    <div class="d-flex align-items-start">
+                        <i class="fas fa-bell text-warning fs-5 me-3 mt-1"></i>
+                        <div>
+                            <strong class="text-warning">Important Notice Regarding Automated Classifications:</strong>
+                            <p class="text-secondary small mb-0 mt-1">
+                                Spam and threat detection algorithms operate on probabilistic statistical models and heuristic pattern rules. <strong>No spam detection system is 100% accurate.</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-times-circle text-danger me-1"></i> No Guarantee of Complete Threat Detection
+                </h6>
+                <p class="text-secondary small mb-3">
+                    MailVision does <strong>not guarantee, warrant, or represent</strong> that all spam, phishing emails, spear-phishing attacks, business email compromise (BEC) schemes, malware links, scam solicitations, or deceptive content will be detected or flagged.
+                </p>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-exchange-alt text-cyan me-1"></i> False Positives and False Negatives
+                </h6>
+                <p class="text-secondary small mb-3">
+                    Automated analysis may occasionally produce:
+                </p>
+                <ul class="text-secondary small mb-3 ps-3">
+                    <li class="mb-1"><strong>False Positives:</strong> Legitimate, important, or benign communications incorrectly categorized as SPAM.</li>
+                    <li class="mb-1"><strong>False Negatives:</strong> Malicious, fraudulent, or unsolicited messages incorrectly categorized as HAM (clean).</li>
+                </ul>
+
+                <h6 class="text-white fw-bold mb-2">
+                    <i class="fas fa-shield-virus text-cyan me-1"></i> Assistive Screening Utility Only
+                </h6>
+                <p class="text-secondary small mb-0">
+                    MailVision is provided as an auxiliary screening tool and educational reference. It is <strong>not</strong> a replacement for comprehensive endpoint security software, anti-virus protection, organizational mail filtering gateways, or individual critical judgment. You should never open suspicious attachments, click unverified hyperlinks, or provide personal/financial credentials solely because a message was assigned a low risk rating.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 6: Service Availability & Technical Limitations -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-server text-cyan me-2"></i>
+                    <span>6. Service Availability &amp; Limitations</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    MailVision is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis, without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+                </p>
+                <p class="text-secondary mb-3">
+                    Without limiting the foregoing, we do not warrant that:
+                </p>
+                <ul class="text-secondary small mb-3 ps-3">
+                    <li class="mb-2">The service will function uninterrupted, secure, or available at any particular time or location.</li>
+                    <li class="mb-2">Any errors or defects in classification or server code will be immediately corrected.</li>
+                    <li class="mb-0">External upstream APIs, including the Google Gmail API and hosting infrastructure providers, will remain available or free of rate limits and maintenance windows.</li>
+                </ul>
+                <p class="text-secondary small mb-0">
+                    We reserve the right to modify, suspend, or discontinue any feature, batch limit, or aspect of MailVision at any time without prior liability or notice.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 7: User Privacy & Account Disconnection -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-user-lock text-cyan me-2"></i>
+                    <span>7. User Privacy &amp; Account Disconnection</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    Your privacy and data security are governed by our <a href="{{ url_for('privacy_page') }}" class="text-cyan text-decoration-none">Privacy Policy</a>, which is incorporated into these Terms by reference.
+                </p>
+                <p class="text-secondary mb-3">
+                    You have the absolute right to disconnect your Gmail account from MailVision at any time:
+                </p>
+                <ul class="text-secondary small mb-0 ps-3">
+                    <li class="mb-2">
+                        Clicking the <strong>Disconnect Account</strong> button in the MailVision interface initiates an immediate database deletion of your stored session tokens.
+                    </li>
+                    <li class="mb-0">
+                        You can also revoke MailVision's access directly via your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" class="text-cyan font-monospace">Google Security Permissions <i class="fas fa-external-link-alt ms-1 small"></i></a>.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 8: Limitation of Liability -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-gavel text-cyan me-2"></i>
+                    <span>8. Limitation of Liability</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary small mb-0">
+                    To the maximum extent permitted by applicable law, in no event shall MailVision, its developers, authors, contributors, or affiliated entities be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to, use of, or inability to access or use the application; (ii) any email classification error, false positive, or false negative; (iii) any unauthorized access or use of our servers or databases; or (iv) any reliance placed by you on the completeness or accuracy of any threat indicator or risk score.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 9: Contact Information Placeholder -->
+        <div class="cyber-card mb-4">
+            <div class="cyber-card-header">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-address-card text-cyan me-2"></i>
+                    <span>9. Contact Information</span>
+                </div>
+            </div>
+            <div class="cyber-card-body p-4">
+                <p class="text-secondary mb-3">
+                    If you have any questions, comments, or legal notices concerning these Terms of Service, please contact the project maintainer:
+                </p>
+                <div class="p-3 rounded-3" style="background: rgba(13, 21, 39, 0.7); border: 1px solid var(--card-border);">
+                    <div class="row g-2 small">
+                        <div class="col-sm-4 text-muted">Project Maintainer:</div>
+                        <div class="col-sm-8 text-white fw-bold">[Project Owner / Maintainer Name]</div>
+
+                        <div class="col-sm-4 text-muted">Contact / Legal Inquiries:</div>
+                        <div class="col-sm-8 text-white font-monospace">[Project Owner / Contact Email - contact@example.com]</div>
+
+                        <div class="col-sm-4 text-muted">Project Repository:</div>
+                        <div class="col-sm-8 text-white font-monospace">[Project Repository URL / Issues Link]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="text-center mt-5 mb-3">
+            <a href="{{ url_for('home') }}" class="btn btn-cyber-outline rounded-pill px-4 py-2 text-decoration-none">
+                <i class="fas fa-arrow-left me-2"></i>Return to MailVision Detector
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

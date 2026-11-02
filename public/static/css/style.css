@@ -721,6 +721,18 @@ p, span, label, div {
     margin-top: auto;
 }
 
+.footer-legal-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-legal-link:hover {
+    color: var(--accent-blue);
+    text-decoration: underline;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
